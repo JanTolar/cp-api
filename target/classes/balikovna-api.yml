@@ -1,0 +1,56 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  "/api/v1/zasilka/history":
+    get:
+      tags:
+      - balikovna-api
+      operationId: getZasilkaHistory
+      parameters:
+      - name: idClient
+        in: header
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: idZasilka
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ZasilkaHistory"
+components:
+  schemas:
+    ZasilkaHistory:
+      type: object
+      properties:
+        idZasilka:
+          type: string
+          description: ID zasilky
+          example: NB0001000024M
+        idClient:
+          type: integer
+          description: ID of client
+          format: int32
+        datStav:
+          type: string
+          description: Date and time of state creation
+        status:
+          type: string
+          description: Human readeble status-reason pair
+        charge:
+          type: string
+          description: Human readable charge (payment type)
